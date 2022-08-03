@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+
+<node pkg="widowx_driver" type="widowx_torque_driver.py" name="widowx_torque_driver" output="screen" args="" cwd="node">
+    <param name="robot_name" value="widowx" />
+    <param name="serial_port" value="/dev/ttyUSB_WIDOWX" />
+    <param name="baud_rate" type="int" value="1000000" />
+    <param name="max_rpm" type="double" value="2.5" />
+
+    <param name="internal_P" type="int" value="8" />
+    <param name="internal_I" type="int" value="0" />
+    <param name="internal_D" type="int" value="0" />
+
+    <param name="init_pos_1" type="int" value="2048" />
+    <param name="init_pos_2" type="int" value="1210" />
+    <param name="init_pos_3" type="int" value="1700" />
+    <param name="init_pos_4" type="int" value="1500" />
+    <param name="init_pos_5" type="int" value="512" />
+    <param name="init_pos_6" type="int" value="512" />
+
+
+</node>
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find widowx_arm_description)/robots/widowx_contact.urdf.xacro'"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+<!-- <node pkg="widowx_controller" type="widowx_stiffness_state_space_controller.py" name="widowx_stiffness_controller" output="screen" args="" cwd="node">
+</node> -->
+
+</launch>

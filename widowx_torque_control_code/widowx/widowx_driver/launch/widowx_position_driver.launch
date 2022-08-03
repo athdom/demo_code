@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- By default we do not overwrite the URDF. Change the following to true to change the default behavior -->
+  <arg name="load_robot_description" default="true"/>
+
+  <!-- The name of the parameter under which the URDF is loaded -->
+  <arg name="robot_description" default="robot_description"/>
+
+    <arg name="debug" default="false" />
+  <arg unless="$(arg debug)" name="launch_prefix" value="" />
+  <arg     if="$(arg debug)" name="launch_prefix"
+       value="gdb -x $(find widowx_arm_moveit_config)/launch/gdb_settings.gdb --ex run --args" />
+
+  <!-- Verbose Mode Option -->
+  <arg name="info" default="$(arg debug)" />
+  <arg unless="$(arg info)" name="command_args" value="" />
+  <arg     if="$(arg info)" name="command_args" value="--debug" />
+
+    <arg name="allow_trajectory_execution" default="false"/>
+  <arg name="fake_execution" default="false"/>
+  <arg name="max_safe_path_cost" default="1"/>
+  <arg name="jiggle_fraction" default="0.05" />
+  <arg name="publish_monitored_planning_scene" default="false"/>
+
+<node pkg="widowx_driver" type="widowx_position_driver.py" name="widowx_torque_driver" output="screen" args="" cwd="node">
+    <param name="robot_name" value="widowx" />
+    <param name="serial_port" value="/dev/ttyUSB_WIDOWX" />
+    <param name="baud_rate" type="int" value="1000000" />
+    <param name="max_rpm" type="double" value="2.5" />
+    
+    <param name="internal_P" type="int" value="8" />
+    <param name="internal_I" type="int" value="0" />
+    <param name="internal_D" type="int" value="0" />
+    
+    <param name="init_pos_1" type="int" value="2048" />
+    <param name="init_pos_2" type="int" value="1210" />
+    <param name="init_pos_3" type="int" value="1700" />
+    <param name="init_pos_4" type="int" value="1500" />
+    <param name="init_pos_5" type="int" value="512" />
+    <param name="init_pos_6" type="int" value="512" />
+
+
+</node>
+
+
+    <!-- Load updated joint limits (override information from URDF) -->
+  <!-- Load universal robot description format (URDF) -->
+  <param if="$(arg load_robot_description)" name="$(arg robot_description)" command="$(find xacro)/xacro --inorder '$(find widowx_arm_description)/robots/widowx_contact.urdf.xacro'"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+
+  <!-- The semantic description that corresponds to the URDF -->
+  <param name="$(arg robot_description)_semantic" textfile="$(find widowx_arm_moveit_config)/config/widowx_contact.srdf" />
+  
+  <!-- Load updated joint limits (override information from URDF) -->
+  <group ns="$(arg robot_description)_planning">
+    <rosparam command="load" file="$(find widowx_arm_moveit_config)/config/joint_limits.yaml"/>
+  </group>
+
+  <!-- Load default settings for kinematics; these settings are overridden by settings in a node's namespace -->
+  <group ns="$(arg robot_description)_kinematics">
+    <rosparam command="load" file="$(find widowx_arm_moveit_config)/config/kinematics.yaml"/>
+  </group>
+
+    <node name="move_group" launch-prefix="$(arg launch_prefix)" pkg="moveit_ros_move_group" type="move_group" respawn="false" output="screen" args="$(arg command_args)">
+    <!-- Set the display variable, in case OpenGL code is used internally -->
+    <env name="DISPLAY" value="$(optenv DISPLAY :0)" />
+
+    <param name="allow_trajectory_execution" value="$(arg allow_trajectory_execution)"/>
+    <param name="max_safe_path_cost" value="$(arg max_safe_path_cost)"/>
+    <param name="jiggle_fraction" value="$(arg jiggle_fraction)" />
+
+    <!-- load these non-default MoveGroup capabilities -->
+    <!--
+    <param name="capabilities" value="
+                  a_package/AwsomeMotionPlanningCapability
+                  another_package/GraspPlanningPipeline
+                  " />
+    -->
+
+    <!-- inhibit these default MoveGroup capabilities -->
+    <!--
+    <param name="disable_capabilities" value="
+                  move_group/MoveGroupKinematicsService
+                  move_group/ClearOctomapService
+                  " />
+    -->
+
+    <!-- Publish the planning scene of the physical robot so that rviz plugin can know actual robot -->
+    <param name="planning_scene_monitor/publish_planning_scene" value="$(arg publish_monitored_planning_scene)" />
+    <param name="planning_scene_monitor/publish_geometry_updates" value="$(arg publish_monitored_planning_scene)" />
+    <param name="planning_scene_monitor/publish_state_updates" value="$(arg publish_monitored_planning_scene)" />
+    <param name="planning_scene_monitor/publish_transforms_updates" value="$(arg publish_monitored_planning_scene)" />
+  </node>
+
+</launch>
