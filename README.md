@@ -23,8 +23,21 @@
 ## Interactive Motion Planning on the Mesh of the deformable object
 **Standalone source code:** expmapCL.cpp
 
-**Comments:** Implementation in C++ of a Planning framework of interactive trajectories on the mesh representation of a deformable object. This code is updating the 2D representations of the incoming 3D mesh and calculates the appropriate transformations to calculate the desired pose that is provided as input to the previously described Stiffness controller in the WidowX robotic arm. (This code is part of the publication "Interaction Control of a Robotic Manipulator with the Surface of a Deformable Object" - Under review)
+**Comments:** Implementation in C++ of a Planning framework of interactive trajectories on the mesh representation of a deformable object. This code is updating the 2D representations of the incoming 3D mesh and calculates the appropriate transformations to calculate the desired pose that is provided as input to the previously described Stiffness controller in the WidowX robotic arm. 
+
+_(This code is part of the publication "Interaction Control of a Robotic Manipulator with the Surface of a Deformable Object" - Under review)_
+
+## Interactive Motion Planning over a moving surface perceived with RGB-D camera
+**Standalone source code:** surface_interaction.cpp & surface_interaction.h
+
+**Comments:** Implementation in C++ of an interactive planning algorithm over a moving surface perceived with an RGB-D camera. 
+The PointCloud data of an RGB-D camera are transformed to a virtual camera that is assumed perpedicular to the moving surface. 
+Restricted areas and obstacles perceived on the surface are avoided with a Navigation function controller implemented on the image plane. 
+
+_(This code is part of the publication referenced in [[2]](#2).)_
 
 ## References
 <a id="1">[1]</a> 
 "Villani, L. and De Schutter, J., 2016. Force control. In Springer handbook of robotics (pp. 195-220). Springer, Cham."
+<a id="2">[2]</a> 
+Dometios AC, Zhou Y, Papageorgiou XS, Tzafestas CS, Asfour T. Vision-based online adaptation of motion primitives to dynamic surfaces: application to an interactive robotic wiping task. IEEE Robotics and Automation Letters. 2018 Jan 31;3(3):1410-7
