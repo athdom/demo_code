@@ -14,6 +14,8 @@
 
 **Comments:** Implementation in Python of an online kinematic position controller and a Stiffness controlle that is transforming forces and torques in the task space into joint torques of the widowx arm through the arbotix controller. Theoretical background for the stiffness controller can be found in [[1]](#1).
 
+![contact-example](images/contact_task.gif)
+
 **Package:** widowx_torque_control_code/widowx_driver
 
 **Source code:** widowx_torque_driver.py & widowx_position_driver.py
@@ -25,7 +27,8 @@
 
 **Comments:** Implementation in C++ of a Planning framework of interactive trajectories on the mesh representation of a deformable object. This code is updating the 2D representations of the incoming 3D mesh and calculates the appropriate transformations to calculate the desired pose that is provided as input to the previously described Stiffness controller in the WidowX robotic arm.
 
-![Planning-example](images/ezgif.com-gif-maker.gif)
+Interactive Mesh Planning:
+![Planning-example](images/mesh_planning.gif)
 
 _(This code is part of the publication "Interaction Control of a Robotic Manipulator with the Surface of a Deformable Object" - Under review)_
 
@@ -35,6 +38,14 @@ _(This code is part of the publication "Interaction Control of a Robotic Manipul
 **Comments:** Implementation in C++ of an interactive planning algorithm over a moving surface perceived with an RGB-D camera. 
 The PointCloud data of an RGB-D camera are transformed to a virtual camera that is assumed perpedicular to the moving surface. 
 Restricted areas and obstacles perceived on the surface are avoided with a Navigation function controller implemented on the image plane. 
+
+Navigation Function Controller visualization:
+
+![nf-example](images/nf_explanation.png)
+
+Motion Planning on Point-Cloud data:
+
+![pcl-planning](images/pcl_interactive_planning.gif)
 
 _(This code is part of the publication referenced in [[2]](#2).)_
 
