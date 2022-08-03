@@ -4,7 +4,7 @@ Package: Katana Tutorials
 
 Source code: follow_online_trajectory.cpp
 
-Comments: Implementation in C++ of an online kinematic trajectory tracking algorithm for the End-effector of the Katana manipulator. The input pose is calculated by a motion planning algorithm that adapts the robot motion to a constantly changing surface.
+Comments: Implementation an online kinematic trajectory tracking algorithm for the End-effector of the Katana manipulator. The input pose is calculated by a motion planning algorithm that adapts the robot motion to a constantly changing surface.
 
 Package: widowx_torque_control_code/widowx_controller
 
