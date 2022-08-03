@@ -39,5 +39,6 @@ _(This code is part of the publication referenced in [[2]](#2).)_
 ## References
 <a id="1">[1]</a> 
 "Villani, L. and De Schutter, J., 2016. Force control. In Springer handbook of robotics (pp. 195-220). Springer, Cham."
+
 <a id="2">[2]</a> 
 Dometios AC, Zhou Y, Papageorgiou XS, Tzafestas CS, Asfour T. Vision-based online adaptation of motion primitives to dynamic surfaces: application to an interactive robotic wiping task. IEEE Robotics and Automation Letters. 2018 Jan 31;3(3):1410-7
