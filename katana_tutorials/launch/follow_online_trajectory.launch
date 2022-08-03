@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+  <rosparam file="$(find katana_tutorials)/yaml/follow_online_trajectory.yaml" command="load" /> 
+  <node pkg="katana_tutorials" name="follow_online_trajectory" type="follow_online_trajectory" output = "screen" />
+  <node pkg="katana_tutorials" name="gripper_position" type="gripper_position_pub" output = "screen" />
+</launch>
