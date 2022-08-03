@@ -25,7 +25,7 @@
 
 **Comments:** Implementation in C++ of a Planning framework of interactive trajectories on the mesh representation of a deformable object. This code is updating the 2D representations of the incoming 3D mesh and calculates the appropriate transformations to calculate the desired pose that is provided as input to the previously described Stiffness controller in the WidowX robotic arm.
 
-![alt-text](https://github.com/athdom/demo_code/tree/main/images/ezgif.com-gif-maker.gif)
+![Planning-example](images/ezgif.com-gif-maker.gif)
 
 _(This code is part of the publication "Interaction Control of a Robotic Manipulator with the Surface of a Deformable Object" - Under review)_
 
